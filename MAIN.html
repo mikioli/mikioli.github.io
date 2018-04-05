@@ -1,0 +1,126 @@
+<html>
+	<head>
+	</head>
+	<body style=" background-color: black;">
+	
+		<div style=" margin: 0 auto; width: 50%;">
+		<h2 style="text-align: center; width: 600px; color: white;">URATUJ LANCA PRZED PRACĄ FIZYCZNĄ </h2>
+		<div  id= "plansza" style=" height: 500px; width: 600px; background-color: black; position: absolute; border-style: solid; border-color: yellow;">
+			
+			<img  id= "praca" src="praca.png" alt="praca" style="position: absolute; left:15px; top:0px; display: block; z-index: 10;">
+			<img  id= "lanc" src="lanc.png" alt="lanc" style="position: absolute; left:250px; top: 400px;">
+			<img  id= "pocisk" src="pocisk.png" alt="pocisk" style="position: absolute; left:15px; top: 400px; visibility: hidden; z-index: 9;">
+			<div id= "wynik" style="position: absolute; left:270px; top:30px; color: green; font-size: 140px;">0</div>
+			<div id= "przegrana" style="position: absolute; left:20px; top:200px; color: white; font-size: 28px; background-color: red; visibility: hidden;">PRZEGRALES LANC POSZEDL DO PRACY!!! </div>
+		</div>
+		</div>
+		
+		<div style=" visibility: hidden" >
+
+			<div id="kierunek">0</div> <!-- 1 lewo, 0 prawo -->
+			<div id="opadanie">0</div> <!-- 1 lewo, 0 prawo -->
+			<div id="opadanieLicznik">1</div>
+			<div id="strzal">0</div>
+			<div id="przegrales">0</div>
+		
+		</div>
+		<script>
+		
+			var praca = document.getElementById("praca");
+			var kierunek = document.getElementById("kierunek");
+			var opadanie = document.getElementById("opadanie");
+			var opadanieLicznik = document.getElementById("opadanieLicznik");
+			var pocisk = document.getElementById("pocisk");
+		    var lanc = document.getElementById("lanc");
+			var strzal = document.getElementById("strzal");
+			var wynik = document.getElementById("wynik");
+			var przegrales = document.getElementById("przegrana");
+			
+			
+			
+					
+			function obslugaKlawiatury(event) {
+				
+				if (event.keyCode == 37) {
+					document.getElementById("lanc").style.left = parseInt(document.getElementById("lanc").style.left) - 3 + 'px';
+				}
+				else if (event.keyCode == 39) {
+					 document.getElementById("lanc").style.left = parseInt(document.getElementById("lanc").style.left) + 3 + 'px';
+				}
+				else if ((event.keyCode == 32) &&(pocisk.style.visibility == 'hidden')) {
+					 strzal.innerHTML = 1;
+					 pocisk.style.visibility = 'visible';
+					 pocisk.style.top = lanc.style.top;
+					 pocisk.style.left = lanc.style.left;
+				}
+			}
+			
+			
+			function myF(){
+			
+				if( kierunek.innerHTML == 0) {
+					praca.style.left = parseInt(praca.style.left) + 6 + 'px';
+				}
+				else {
+					praca.style.left = parseInt(praca.style.left) - 6 + 'px';	
+				}
+				if( parseInt(opadanie.innerHTML) > parseInt(opadanieLicznik.innerHTML)){
+					praca.style.top = parseInt(praca.style.top) + 1 + 'px';
+				}
+					
+					
+				if (parseInt(praca.style.left) > 525) {
+					kierunek.innerHTML = 1;
+					opadanie.innerHTML = Math.floor(Math.random() *10 ) + 1;
+					
+				}
+				if (parseInt(praca.style.left) <= 0) {
+					kierunek.innerHTML = 0;
+					opadanie.innerHTML = Math.floor(Math.random() *10 ) + 1;
+				
+					
+				}
+				
+				if (parseInt(praca.style.top) > 431) {
+					praca.style.top = 0;
+					wynik.innerHTML = 0;
+					przegrales.style.visibility = 'visible';
+					praca.style.visibility = 'hidden';
+				}
+				
+				if( opadanieLicznik.innerHTML >= 13){
+					opadanieLicznik.innerHTML = 0;
+				}
+				else{
+				 opadanieLicznik.innerHTML = parseInt(opadanieLicznik.innerHTML) + 1; 
+				}
+				
+				var srodekPociskX = parseInt(pocisk.style.left) + 11;
+				var czubekPociskY = parseInt(pocisk.style.top);
+				var pociskWObiekcie = srodekPociskX > parseInt(praca.style.left) && srodekPociskX < (parseInt(praca.style.left) + 75) && czubekPociskY > parseInt(praca.style.top) &&  czubekPociskY  < (parseInt(praca.style.top) + 69) ;
+				
+				if( pociskWObiekcie ){
+					strzal.innerHTML = 0;
+					pocisk.style.visibility = 'hidden';
+					praca.style.top = 0;
+					wynik.innerHTML = parseInt(wynik.innerHTML)+ 1;
+				}
+				
+				
+				if( parseInt(pocisk.style.top) <= 0 ){
+					strzal.innerHTML = 0;
+					pocisk.style.visibility = 'hidden';
+				}
+				
+				if( parseInt(strzal.innerHTML) == 1){
+					pocisk.style.top = parseInt(pocisk.style.top) - 3 + 'px';
+				}
+						
+			}	
+
+		document.addEventListener('keydown', function(event){ obslugaKlawiatury(event); },true);
+		setInterval("myF()", 10);
+
+		</script>
+	</body>
+</html>
