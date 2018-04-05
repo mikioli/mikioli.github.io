@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>GRA</title>
+		
+    </head>
+	
+
+    <body style="background-color: black;">
+		<div style=" margin: 0 auto; width: 50%;">
+			<div style="position: absolute; border-style: solid;  border-width: 5px;  border-color: red; background-color: white; height: 250px; width: 600px;" >
+				<h3 style="background-color: yellow; text-align: center;">WYNIK:</h3>
+				<h3 id="wynik" style="background-color: yellow; text-align: center;">0</h3>
+				<img id="BTC" src="BTC.png" alt="BTC" align="left" style=" position: absolute; left:40px; top:100px;"/>
+				<img id="Kubek_1" src="kubek.png" alt="KUBEK_1" align="left" style=" position: absolute; left:20px; top:100px;"/>
+				<button id="b1" onclick="wybor(0)" style=" position: absolute; left:70px; top:220px;">-1-</button>
+				<img id="Kubek_2" src="kubek.png" alt="KUBEK_2" align="left" style=" position: absolute; left:220px; top:100px;"/>
+				<button id="b2" onclick="wybor(1)" style=" position: absolute; left:270px; top:220px;">-2-</button>
+				<img id="Kubek_3" src="kubek.png" alt="KUBEK_3" align="left" style=" position: absolute; left:420px; top:100px;"/>
+				<button id="b3" onclick="wybor(2)" style=" position: absolute; left:470px; top:220px;">-3-</button>
+				
+			</div>
+        </div>	
+
+    </body>
+	<script>
+		function wybor( nr ){
+		
+			if(Kubek_1.poz123 == nr){
+			document.getElementById("wynik").innerHTML = parseInt(document.getElementById("wynik").innerHTML) + 1;
+			}
+			odpowiedz = true;
+		
+		}
+	
+		function Kubek(X, Y, speed, imgID, poz123) {
+			
+			this.X = X;
+			this.Y = Y;
+			this.imgID = imgID;
+			this.speed = speed;
+			this.inPOZ = true;
+			this.poz123 = poz123;
+		
+			this.animate =  function (pozX, pozY) {
+		
+				var dirX = Math.sign(pozX - this.X);
+				var dirY = Math.sign(pozY - this.Y);
+				
+				if( this.X != pozX){
+					if ( this.speed > (Math.abs(pozX - this.X))){
+						this.X = pozX;
+					}else{
+						this.X = this.speed * dirX + this.X;
+					}	
+				}
+				if( this.Y != pozY){
+				
+					if ( this.speed > (Math.abs(pozY - this.Y))){
+						this.Y = pozY;
+					}else{
+						this.Y = this.speed * dirY + this.Y;
+					}	
+				}
+				
+				document.getElementById(String(this.imgID)).style.left = parseInt(this.X) + 'px';
+				document.getElementById(String(this.imgID)).style.top = parseInt(this.Y) + 'px';
+				
+				if((this.Y == pozY) && (this.X == pozX))
+				{
+					this.inPOZ = true;
+				}else{
+					this.inPOZ = false;	
+				}
+			
+			};
+		}
+		
+		var arrPozX = [20,220,420];
+		var pozY = 100;
+		
+		var Kubek_1 = new Kubek(arrPozX[0], pozY ,5,"Kubek_1",0);
+		var Kubek_2 = new Kubek(arrPozX[1], pozY ,5,"Kubek_2",1);
+		var Kubek_3 = new Kubek(arrPozX[2], pozY ,5,"Kubek_3",2);
+		
+		
+		
+		
+		var stan = 1;
+		var graj = 0;
+		var ktoryKubek = 0;
+		var gdzie = 0;
+		var licznikMieszania= 0;
+		var odpowiedz = false;
+		
+		
+		
+		function main(){
+		
+		switch(stan) {
+		case 1:
+		Kubek_1.speed = 1;
+		Kubek_2.speed = 1;
+		Kubek_3.speed = 1;
+		
+		document.getElementById('b1').style.visibility = 'hidden';
+		document.getElementById('b2').style.visibility = 'hidden';
+		document.getElementById('b3').style.visibility = 'hidden';
+		
+		
+		Kubek_1.animate(Kubek_1.X,25);
+		if(Kubek_1.inPOZ){
+			
+			
+			stan = 2;
+			gdzie = Math.floor(Math.random() *3);
+			ktoryKubek = Math.floor(Math.random() *3);
+			while( gdzie == ktoryKubek){
+					ktoryKubek = Math.floor(Math.random() *3);
+				}
+		}
+        break;
+		case 2:
+		Kubek_1.animate(Kubek_1.X,100);
+		
+		if(Kubek_1.inPOZ){
+			stan = 3;
+			Kubek_1.speed = 15;
+			Kubek_2.speed = 15;
+			Kubek_3.speed = 15;
+		}
+		
+        break;
+		case 3:
+		
+		if(licznikMieszania < 10){
+		
+			if(Kubek_1.poz123 == gdzie){
+				Kubek_1.animate( arrPozX[ ktoryKubek ], pozY );	
+				if(Kubek_1.inPOZ){
+					Kubek_1.poz123 = ktoryKubek ;
+				}				
+			}else if(Kubek_1.poz123 == ktoryKubek){
+				Kubek_1.animate( arrPozX[ gdzie], pozY );
+				if(Kubek_1.inPOZ){
+					Kubek_1.poz123 = gdzie;
+				}
+			}
+			
+			if(Kubek_2.poz123 == gdzie){
+				Kubek_2.animate( arrPozX[ ktoryKubek ], pozY );	
+				if(Kubek_2.inPOZ){
+					Kubek_2.poz123 = ktoryKubek;
+				}
+			}else if(Kubek_2.poz123 == ktoryKubek){
+				Kubek_2.animate( arrPozX[ gdzie], pozY );
+				if(Kubek_2.inPOZ){
+					Kubek_2.poz123 = gdzie;
+				}			
+			}
+			
+			if(Kubek_3.poz123 == gdzie){
+				Kubek_3.animate( arrPozX[ ktoryKubek ], pozY );	
+				if(Kubek_3.inPOZ){
+					Kubek_3.poz123 = ktoryKubek;
+				}
+			}else if(Kubek_3.poz123 == ktoryKubek){
+				Kubek_3.animate( arrPozX[ gdzie], pozY );
+					if(Kubek_3.inPOZ){
+					Kubek_3.poz123 = gdzie;
+				}
+			}
+			
+			
+			
+			
+			if(Kubek_1.inPOZ && Kubek_2.inPOZ && Kubek_3.inPOZ)
+			{
+			
+				licznikMieszania= licznikMieszania + 1;
+				gdzie = Math.floor(Math.random() *3);
+				ktoryKubek = Math.floor(Math.random() *3);
+				while( gdzie == ktoryKubek){
+					ktoryKubek = Math.floor(Math.random() *3);
+				}
+			}
+		}else{
+			licznikMieszania = 0;
+			stan = 4;
+		}
+		
+		document.getElementById("BTC").style.left = parseInt(Kubek_1.X) + 20 + 'px';
+		document.getElementById("BTC").style.top = parseInt(Kubek_1.Y)  +10 + 'px';
+        break;
+		case 4:
+			document.getElementById('b1').style.visibility = 'visible';
+			document.getElementById('b2').style.visibility = 'visible';
+			document.getElementById('b3').style.visibility = 'visible';
+			if(odpowiedz){
+				stan = 1;
+				odpowiedz = false;
+			}
+		
+        break;
+		
+		default: 
+			}
+		}
+	
+			setInterval("main()", 10);
+	
+	
+	
+	
+	</script>
+</html>
