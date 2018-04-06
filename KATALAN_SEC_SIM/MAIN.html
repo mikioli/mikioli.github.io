@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Cataluña</title>
+		<link rel="icon" href="redstar.png" type="image/gif" sizes="16x16"> 
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		
+    </head>
+
+    <body style="background-color: black;">
+		<img id="mainBackground" src="START.png" alt="HEH" >
+		<div id="menu">
+			<h2 id="text">
+				CHOOSE YOUR FLAG!
+			</h2>
+			<div id="flagsContanier">
+					<img  onclick="flagAnimate('flag1')" id="flag1" class="Flag" src="commie1.png" alt="f1" >
+					<img  onclick="flagAnimate('flag2')" id="flag2" class="Flag" src="commie2.png" alt="f2" >
+					<img  onclick="flagAnimate('flag3')" id="flag3" class="Flag" src="commie3.png" alt="f3" >
+			</div>
+			<button id= "startButton" class="invisible" onclick="lost()"> FIGHT FOR INDEPENDENCE! </button> <!--<img  src="l.gif" alt="HEH" >-->
+		</div>
+
+
+    </body>
+	<script src=""></script>
+	
+	<script>
+	function flagAnimate(name) {
+		var element = document.getElementById(name);
+		var f1 = document.getElementById("flag1");
+		var f2 = document.getElementById("flag2");
+	    var f3 = document.getElementById("flag3");
+		var button = document.getElementById("startButton");
+		
+		f1.classList.remove("chooseFlag");
+		f2.classList.remove("chooseFlag");
+		f3.classList.remove("chooseFlag");
+		element.classList.add("chooseFlag");
+		
+		button.classList.remove("invisible");
+		button.classList.add("visible");
+	}
+	
+	function lost() {
+		var image = document.getElementById("mainBackground").src = "LOST.png";
+		var text = document.getElementById("text").innerHTML = "YOU HAVE LOST!";
+		
+	}
+</script>
+
+</html>

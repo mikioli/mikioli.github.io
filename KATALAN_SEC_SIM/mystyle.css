@@ -1,0 +1,106 @@
+#mainBackground {
+    display: block;
+	margin-left: auto;
+	margin-right: auto;
+	
+	border-radius: 40px;
+	box-shadow: 1px 1px 10px gray;
+}
+
+h2{
+	text-align: center;
+	color: White;
+	margin: 5px;
+
+}
+
+#flagsContanier {
+	display: flex;
+	width:600px;
+	margin-left: auto;
+	margin-right: auto;
+	justify-content: center;
+}
+
+#menu {
+	display: block;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 40px;
+	box-shadow: 1px 1px 10px gray;
+	padding: 5px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+
+
+/* Standard syntax */
+@keyframes example {
+    25%   {transform: rotateY(90deg);}
+    50%  {transform: rotateY(180deg);}
+    75%  {transform: rotateY(270deg);}
+    100% {transform: rotateY(360deg);}
+}
+
+.Flag {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	
+	box-shadow: 1px 1px 10px gray;
+	border-style: solid;
+    border-width: 5px;
+}
+
+
+.Flag:hover {
+	
+    
+}
+
+.chooseFlag{
+	
+	animation-duration: 2s;	
+	animation-name: example;
+	border-style: solid;
+    border-width: 5px;
+	box-shadow: 1px 1px 20px red;
+	border-color: red;
+}
+
+#startButton {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+    background-color: red; /* Green */
+	font-weight: bold;
+    /*border: none;*/
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+	
+	vertical-align: middle;
+}
+
+span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.visible{
+
+	visibility: visible;
+}
+
+.invisible{
+	
+	visibility: hidden;
+}
+
